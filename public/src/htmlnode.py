@@ -1,3 +1,5 @@
+
+
 class HTMLNode():
     def __init__(self,tag=None,value=None, children=None, props=None):
         self.tag=tag
@@ -34,7 +36,7 @@ class HTMLNode():
 
 class LeafNode(HTMLNode):
     def __init__(self, tag, value, props=None):
-        super().__init__(tag, value, props)
+        super().__init__(tag, value, None, props)
     
     def to_html(self):
         if self.value==None:
@@ -59,3 +61,41 @@ class LeafNode(HTMLNode):
             and self.value==other.value
             and self.props==other.props
         )
+
+class ParentNode(HTMLNode):
+    def __init__(self, tag, children, props=None):
+        super().__init__(tag, None, children, props)
+
+
+    def to_html(self):
+        if self.tag==None:
+            raise ValueError("the parent node have no tag")
+        if self.children==None:
+            raise ValueError("the parent node have no child attached")
+        
+        return_text=""
+        if self.props ==None:
+            return_text+=f"<{self.tag}>"
+            for child in self.children:
+                return_text+=child.to_html()
+        else:
+            for prop in self.props:
+                return_text+=f'<{self.tag} {prop}="{self.props[prop]}">'
+            for child in self.children:
+                return_text+=child.to_html()
+
+        return_text+=f"</{self.tag}>"
+        return return_text
+    
+
+
+    def __eq__(self, other):
+        return (
+            self.tag==other.tag
+            and self.children==other.children
+            and self.props==other.props
+        )
+    
+
+
+    

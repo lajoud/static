@@ -1,6 +1,7 @@
 import unittest
 
 from textnode import TextNode, TextType
+from list_of_function import  split_nodes_delimiter
 
 
 class TestTextNode(unittest.TestCase):
@@ -30,6 +31,9 @@ class TestTextNode(unittest.TestCase):
         
         self.assertNotEqual(node, node3)
         self.assertNotEqual(node2, node3)
+
+
+
 
 if __name__ == "__main__":
     unittest.main()
