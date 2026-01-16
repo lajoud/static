@@ -95,7 +95,3 @@ class ParentNode(HTMLNode):
             and self.children==other.children
             and self.props==other.props
         )
-    
-
-
-    
